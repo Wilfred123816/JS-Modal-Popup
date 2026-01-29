@@ -88,7 +88,7 @@ trapFocus(e) {
 
 Live Demo
 
-https://github.com/Wilfred123816/JS-Modal-Popup
+https://wilfred123816.github.io/JS-Modal-Popup/
 
 Browser Support
 
