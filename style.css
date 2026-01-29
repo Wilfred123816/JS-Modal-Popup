@@ -1,0 +1,226 @@
+/* Modal Styles - Only what's necessary for the project */
+
+/* The overlay (background) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show the modal with fade-in effect */
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* The modal box */
+.modal-box {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    
+    /* Animation for modal box */
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.modal-overlay.show .modal-box {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Modal content */
+.modal-content {
+    padding: 40px;
+}
+
+.modal-content h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+.modal-content p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* Modal features list */
+.modal-features {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 25px 0;
+}
+
+.modal-features h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.modal-features ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.modal-features li {
+    padding: 8px 0;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.modal-features li:before {
+    content: "✓";
+    color: #667eea;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Modal buttons */
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.modal-action-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1em;
+}
+
+#actionBtn1 {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+#actionBtn2 {
+    background: #10b981;
+    color: white;
+}
+
+#actionBtn3 {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.modal-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-action-btn:active {
+    transform: translateY(0);
+}
+
+.modal-action-btn:focus {
+    outline: 3px solid rgba(102, 126, 234, 0.5);
+    outline-offset: 2px;
+}
+
+/* Modal focus demo */
+.modal-focus-demo {
+    margin-top: 25px;
+    padding: 15px;
+    background: #f0f9ff;
+    border-radius: 8px;
+    border: 2px solid #bae6fd;
+    font-size: 0.9em;
+}
+
+.modal-focus-demo p {
+    margin: 0;
+    color: #0369a1;
+}
+
+kbd {
+    background: #333;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* Close button */
+.modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #f1f5f9;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background: #e2e8f0;
+    color: #334155;
+    transform: rotate(90deg);
+}
+
+.modal-close:focus {
+    outline: 3px solid rgba(102, 126, 234, 0.5);
+    outline-offset: 2px;
+}
+
+/* Focus trap indicator (for demo purposes) */
+.modal-box:focus {
+    outline: none;
+}
+
+/* Responsive modal */
+@media (max-width: 600px) {
+    .modal-box {
+        width: 95%;
+        margin: 10px;
+    }
+    
+    .modal-content {
+        padding: 30px 20px;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+    }
+    
+    .modal-action-btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Modal Popup</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Minimal base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+    
+        
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 5px solid #667eea;
+            text-align: left;
+        }
+        
+        .instructions h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .instructions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .instructions li {
+            padding: 8px 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+        
+        .instructions li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .demo-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .open-modal-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .open-modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .open-modal-btn:active {
+            transform: translateY(0);
+        }
+        
+        .open-modal-btn:focus {
+            outline: 3px solid rgba(102, 126, 234, 0.5);
+            outline-offset: 2px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .feature-card p {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        footer {
+            margin-top: 40px;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .keyboard-shortcuts {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .keyboard-shortcuts h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .key {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+        
+        .focus-demo {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .open-modal-btn {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JS Modal Popup</h1>
+        
+        <div class="instructions">
+            <h2>How to Close the Modal:</h2>
+            <ul>
+                <li>Click the close button (×)</li>
+                <li>Click outside the modal (on the overlay)</li>
+                <li>Press the Escape key</li>
+                <li>Press Enter key when a button is focused</li>
+            </ul>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Demo Section</h2>
+            <p>Click the button below to open the modal popup.</p>
+            <button id="openBtn" class="open-modal-btn">
+                Open Modal Popup
+            </button>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Accessibility First</h3>
+                <p>Proper focus management and ARIA attributes for screen readers</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Smooth Animations</h3>
+                <p>Fade-in and fade-out effects with CSS transitions</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⌨️</div>
+                <h3>Keyboard Navigation</h3>
+                <p>Full keyboard support including focus trapping</p>
+            </div>
+        </div>
+        
+        <div class="keyboard-shortcuts">
+            <h3>Keyboard Shortcuts:</h3>
+            <p>
+                <span class="key">Esc</span> - Close modal<br>
+                <span class="key">Enter</span> - Activate focused button<br>
+                <span class="key">Tab</span> - Navigate between focusable elements<br>
+                <span class="key">Shift + Tab</span> - Navigate backwards
+            </p>
+        </div>
+        
+        <div class="focus-demo">
+            <p><strong>Accessibility Tip:</strong> When modal opens, focus automatically moves inside it. Try navigating using only keyboard!</p>
+        </div>
+    </div>
+    
+    <!-- Modal Structure -->
+    <div id="modal" class="modal-overlay" aria-hidden="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+        <div class="modal-box" role="dialog">
+            <button id="closeBtn" class="modal-close" aria-label="Close modal">×</button>
+            <div class="modal-content">
+                <h2 id="modalTitle">Welcome to the Modal!</h2>
+                <p id="modalDesc">This is a fully accessible modal popup with focus management and keyboard support.</p>
+                
+                <div class="modal-features">
+                    <h3>Features Implemented:</h3>
+                    <ul>
+                        <li>✓ Fade-in/out animations</li>
+                        <li>✓ Focus management (moves to modal when opened)</li>
+                        <li>✓ Focus trapping (Tab key stays inside modal)</li>
+                        <li>✓ Enter key to close when button focused</li>
+                        <li>✓ Escape key support</li>
+                        <li>✓ Click outside to close</li>
+                        <li>✓ Screen reader friendly</li>
+                    </ul>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button class="modal-action-btn" id="actionBtn1">Action Button 1</button>
+                    <button class="modal-action-btn" id="actionBtn2">Action Button 2</button>
+                    <button class="modal-action-btn" id="actionBtn3">Cancel</button>
+                </div>
+                
+                <div class="modal-focus-demo">
+                    <p><strong>Try this:</strong> Press <kbd>Tab</kbd> to navigate between buttons, then press <kbd>Enter</kbd> to activate.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>JS Modal Popup Project • Focus on accessibility and clean implementation</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
